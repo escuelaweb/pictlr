@@ -15,3 +15,10 @@ Route::get('/', function()
 {
 	return View::make('hello');
 });
+
+//Home routes
+Route::get('/', 'HomeController@index');
+Route::get('/login', 'HomeController@login');
+Route::get('/logout', 'HomeController@logout');
+Route::post('/authenticate', 'HomeController@authenticate');
+Route::get('/main', 'HomeController@main');

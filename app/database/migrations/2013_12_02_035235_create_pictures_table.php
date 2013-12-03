@@ -22,6 +22,7 @@ class CreatePicturesTable extends Migration {
 			$table->string('mime_type', 255);
 			$table->timestamps();
 			$table->foreign('user_id')->references('id')->on('users');
+			$table->unique(array('basedir', 'filename'));
 		});
 	}
 

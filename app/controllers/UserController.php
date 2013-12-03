@@ -84,7 +84,16 @@ class UserController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		//
+		$user = User::find($id);
+
+		if($user !== null)
+		{
+			return View::make('user.edit')->with('user', $user);
+		}
+		else
+		{
+			return Redirect::to('/main')->with('message', 'El perfil solicitado no existe');
+		}
 	}
 
 	/**

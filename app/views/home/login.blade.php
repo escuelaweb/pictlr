@@ -18,7 +18,6 @@
 		</div>
 	</header>
 	<section>
-		<!-- No copiar en la primera tanda -->
 		@if(Session::has('message'))
 		{{Session::get('message')}}
 		@endif
@@ -27,7 +26,6 @@
 			<fieldset class="form-group row">
 				{{Form::label('email', 'Email: ')}}
 
-				<!-- No copiar en la primera tanda -->
 				@if($errors->has('email'))
 				{{Form::label('email', $errors->first('email'))}}
 				@endif
@@ -37,7 +35,6 @@
 			<fieldset class="form-group row">
 				{{Form::label('password', 'Contraseña: ')}}
 
-				<!-- No copiar en la primera tanda -->
 				@if($errors->has('password'))
 				{{Form::label('password', $errors->first('password'))}}
 				@endif

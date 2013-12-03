@@ -78,3 +78,20 @@ Route::filter('csrf', function()
 		throw new Illuminate\Session\TokenMismatchException;
 	}
 });
+
+/*
+|--------------------------------------------------------------------------
+| Filtros propietarios
+|--------------------------------------------------------------------------
+|
+|
+|
+*/
+
+Route::filter('only_saturday', function(){
+	if( date('l') != 'Saturday' )
+	{
+		echo 'Esta página sólo la puedes visitar los sábados';
+		die();
+	}
+});

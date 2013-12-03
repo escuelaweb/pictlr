@@ -18,7 +18,10 @@ Route::get('/', function()
 
 //Home routes
 Route::get('/', 'HomeController@index');
-Route::get('/login', 'HomeController@login');
-Route::get('/logout', 'HomeController@logout');
-Route::post('/authenticate', 'HomeController@authenticate');
-Route::get('/main', 'HomeController@main');
+Route::get('/login', array( 'uses' => 'HomeController@login', 'before' => 'guest|only_saturday'));
+Route::get('/logout', array( 'uses' => 'HomeController@logout', 'before' => 'auth'));
+Route::post('/authenticate', array( 'uses' => 'HomeController@authenticate', 'before' => 'guest'));
+Route::get('/main', array('uses' => 'HomeController@main', 'before' => 'auth'));
+
+//Resource routes
+Route::resource('user', 'UserController');

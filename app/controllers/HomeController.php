@@ -35,7 +35,7 @@ class HomeController extends BaseController {
 		//Create validation rules
 		$rules = array(
 			'email' 		=> 'required|email',
-			'password'	=> 'required'
+			'password'	=> 'required|min:8'
 		);
 		$validator = Validator::make(Input::all(), $rules);
 
@@ -50,7 +50,7 @@ class HomeController extends BaseController {
 			else
 			{
 				//Redirect to login form with error message
-				return Redirect::to('/login')->with('message', 'Usuario o clave incorrectos');
+				return Redirect::to('/login')->with('message', 'Ola k ase? Ce olbido su usuario y klave o ke ase?');
 			}
 		}
 		else

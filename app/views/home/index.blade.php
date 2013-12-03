@@ -24,7 +24,7 @@
 	<section id="main">
 		<footer class="row">
 			<a href="{{URL::to('login')}}" class="btn btn-primary">Inicia Sesión</a>
-			<a href="#" class="btn btn-success">Regístrate</a>
+			<a href="{{URL::route('user.create')}}" class="btn btn-success">Regístrate</a>
 		</footer>
 	</section>
 

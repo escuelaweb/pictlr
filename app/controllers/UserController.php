@@ -7,6 +7,7 @@ class UserController extends \BaseController {
 		$this->beforeFilter('auth', array('except' => array('create', 'store')));
 		$this->beforeFilter('guest', array('only' => array('create', 'store')));
 		$this->beforeFilter('same-user-control', array('only' => array('edit','update', 'destroy')));
+		$this->beforeFilter('csrf', array('only' => array('store', 'edit','destroy')));
 		$this->afterFilter('user-view-count', array('only' => array('show')));
 	}
 
@@ -133,11 +134,17 @@ class UserController extends \BaseController {
 				//Create validation rules
 				$rules = array(
 					'name' 											=> 'required',
-					'username'									=> 'required',
 					'new_password'							=> 'confirmed|min:8',
 					'new_password_confirmation'	=> 'same:new_password'
 				);
-
+				if( Input::has('username') && Input::get('username') !== $user->username )
+				{
+					$rules['username'] = 'required|max:50|unique:users,username';
+				}
+				else
+				{
+					$rules['username'] = 'required|max:50';
+				}
 				$validator = Validator::make(Input::all(), $rules);
 
 				//If form validates correctly
@@ -161,18 +168,21 @@ class UserController extends \BaseController {
 						return Redirect::route('user.edit', $user->id)->with('message', 'Se produjo un error');
 					}
 				}
+				//Validator fails
 				else
 				{
 					//Return to user.edit with message and validation errors
 					return Redirect::route('user.edit', $user->id)->withErrors($validator);
 				}
 			}
+			//Wrong Password
 			else
 			{
 				//Return to user.edit, with message
 				return Redirect::route('user.edit', $user->id)->with('message', 'Contraseña incorrecta');
 			}
 		}
+		//User is null
 		else
 		{
 			return Redirect::to('/main');

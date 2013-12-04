@@ -2,6 +2,12 @@
 
 @section('title') Pictlr - Bienvenido @stop
 
+@section('scripts')
+	@parent
+
+	<script type="text/javascript" src="{{asset('js/jquery-ui.js')}}"></script>
+@stop
+
 @section('header')
 <div class="row">
 	<h1>Bienvenido a Pictlr</h1>

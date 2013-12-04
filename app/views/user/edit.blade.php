@@ -9,7 +9,7 @@ Pictlr - Editar Perfil - {{Auth::user()->name}}
 	<h1>Editar Perfil</h1>
 </div>
 <div class="row">
-	<h2>Modifica la información básica de <a href="#">tu cuenta</a></h2>
+	<h2>Modifica la información básica de <a href="{{URL::route('user.show', $user->id)}}">tu cuenta</a></h2>
 </div>
 @stop
 

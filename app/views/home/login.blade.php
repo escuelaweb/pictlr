@@ -11,6 +11,7 @@ Pictlr - Login
 @stop
 
 @section('main')
+
 @if(Session::has('message'))
 {{Session::get('message')}}
 @endif

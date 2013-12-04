@@ -12,18 +12,27 @@ Bienvenido {{Auth::user()->name}}
 
 @section('main')
 <header>
-	<div class="row">Bienvenido {{Auth::user()->name}}</div>
 	<div class="row">
-		<a class="btn btn-primary" href="{{URL::route('user.edit', Auth::user()->id)}}">Editar Perfil</a>
-		<a class="btn btn-warning" href="{{URL::to('/logout')}}">Cerrar Sesión</a>
-		{{Form::open(array('route' => array('user.destroy', Auth::user()->id), 'method' => 'DELETE'))}}
-		<input type="submit" class="btn btn-danger" value="Borrar Perfil">
-		{{Form::close()}}
+		<h2 class="col-md-12">Bienvenido {{Auth::user()->name}}</h2>
 	</div>
 	<div class="row">
-		@if(Session::has('message'))
+		<div class="col-md-4">
+			<a href="{{URL::route('picture.create')}}" class="btn btn-success">Subir Foto</a>
+			<a class="btn btn-primary " href="{{URL::route('user.edit', Auth::user()->id)}}">Editar Perfil</a>		
+			<a class="btn btn-warning" href="{{URL::to('/logout')}}">Cerrar Sesión</a>
+		</div>
+		<div class="col-md-2">
+			{{Form::open(array('route' => array('user.destroy', Auth::user()->id), 'method' => 'DELETE'))}}
+			<input type="submit" class="btn btn-danger" value="Borrar Perfil">
+			{{Form::close()}}
+		</div>
+	</div>
+	
+	@if(Session::has('message'))
+	<div class="row">
 		<p>{{Session::get('message');}}</p>
-		@endif
 	</div>
+	@endif
+	
 </header>
 @stop

@@ -87,11 +87,28 @@ Route::filter('csrf', function()
 |
 |
 */
-
-Route::filter('only_saturday', function(){
+Route::filter('only-saturday', function(){
 	if( date('l') != 'Saturday' )
 	{
 		echo 'Esta página sólo la puedes visitar los sábados';
 		die();
+	}
+});
+
+Route::filter('same-user-control', function($route){
+	$user_id = (int) $route->getParameter('user');
+	
+	if($user_id !== Auth::user()->id)
+	{
+		return Redirect::to('/main');
+	}
+});
+
+Route::filter('user-view-count', function($route){
+	$user_id = (int) $route->getParameter('user');
+
+	if($user_id !== Auth::user()->id)
+	{
+		DB::table('users')->where('id', $user_id)->update(array('view_count' => DB::raw('view_count + 1')));
 	}
 });

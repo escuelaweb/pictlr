@@ -2,6 +2,14 @@
 
 class UserController extends \BaseController {
 
+	public function __construct()
+	{
+		$this->beforeFilter('auth', array('except' => array('create', 'store')));
+		$this->beforeFilter('guest', array('only' => array('create', 'store')));
+		$this->beforeFilter('same-user-control', array('only' => array('edit','update', 'destroy')));
+		$this->afterFilter('user-view-count', array('only' => array('show')));
+	}
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -73,7 +81,16 @@ class UserController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		//
+		$user = User::find($id);
+
+		if($user !== null)
+		{
+			return View::make('user.show')->with('user', $user);
+		}
+		else
+		{
+			App::abort(404);
+		}
 	}
 
 	/**
@@ -104,7 +121,62 @@ class UserController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+		//Loading the user record
+		$user = User::find($id);
+
+		//If the user exists
+		if($user != null)
+		{			
+			//If the current password matches the actual user password
+			if(Hash::check(Input::get('current_password'), $user->password))
+			{				
+				//Create validation rules
+				$rules = array(
+					'name' 											=> 'required',
+					'username'									=> 'required',
+					'new_password'							=> 'confirmed|min:8',
+					'new_password_confirmation'	=> 'same:new_password'
+				);
+
+				$validator = Validator::make(Input::all(), $rules);
+
+				//If form validates correctly
+				if(! $validator->fails())
+				{					
+					//Update user record
+					$user->name 		= Input::get('name');
+					$user->username	= Input::get('username');
+					if( Input::has('new_password') && Input::get('new_password') !== '' )
+					{
+						$user->password	= Hash::make(Input::get('new_password'));
+					}
+
+					try
+					{
+						$user->save();
+						return Redirect::route('user.edit', $user->id);
+					}
+					catch(Exception $e)
+					{
+						return Redirect::route('user.edit', $user->id)->with('message', 'Se produjo un error');
+					}
+				}
+				else
+				{
+					//Return to user.edit with message and validation errors
+					return Redirect::route('user.edit', $user->id)->withErrors($validator);
+				}
+			}
+			else
+			{
+				//Return to user.edit, with message
+				return Redirect::route('user.edit', $user->id)->with('message', 'Contraseña incorrecta');
+			}
+		}
+		else
+		{
+			return Redirect::to('/main');
+		}
 	}
 
 	/**
@@ -115,7 +187,23 @@ class UserController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
-	}
+		$user = User::find($id);		
 
+		if($user != null)
+		{
+			try
+			{
+				$user->delete();
+				return Redirect::to('/')->with('message', 'Usuario borrado exitosaente');
+			}
+			catch(Exception $e)
+			{
+				return Redirect::to('/main')->with('message', $e->getMessage());
+			}
+		}
+		else
+		{
+			return Redirect::to('/main');
+		}		
+	}
 }

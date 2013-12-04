@@ -18,7 +18,7 @@ Pictlr - Editar Perfil - {{Auth::user()->name}}
 <p>{{Session::get('message')}}</p>
 @endif
 
-{{Form::open(array('route' => 'user.store', 'method' => 'POST'))}}
+{{Form::open(array('route' => array('user.update', $user->id), 'method' => 'PUT'))}}
 	<fieldset class="row form-group">
 		{{Form::label('name', 'Nombre: ')}}
 		{{Form::text('name', $user->name, array('class' => 'form-control'))}}
@@ -32,12 +32,16 @@ Pictlr - Editar Perfil - {{Auth::user()->name}}
 		{{Form::email('email', $user->email, array('class' => 'form-control', 'disabled'))}}
 	</fieldset>
 	<fieldset class="row form-group">
-		{{Form::label('password', 'Contraseña: ')}}
-		{{Form::password('password', array('class' => 'form-control'))}}
+		{{Form::label('new_password', 'Nueva contraseña: ')}}
+		{{Form::password('new_password', array('class' => 'form-control'))}}
 	</fieldset>
 	<fieldset class="row form-group">
-		{{Form::label('password_confirmation', 'Confirma tu contraseña: ')}}
-		{{Form::password('password_confirmation', array('class' => 'form-control'))}}
+		{{Form::label('new_password_confirmation', 'Confirma tu nueva contraseña: ')}}
+		{{Form::password('new_password_confirmation', array('class' => 'form-control'))}}
+	</fieldset>
+	<fieldset class="row form-group">
+		{{Form::label('current_password', 'Para modificar el perfil por favor ingresa tu contraseña actual')}}
+		{{Form::password('current_password', array('class' => 'form-control'))}}
 	</fieldset>
 	<fieldset class="form-group row">
 		<input type="submit" class="btn btn-primary" value="Editar" />				

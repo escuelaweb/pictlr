@@ -73,4 +73,16 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	{
 		return $this->hasMany('Follower', 'follower_id');
 	}
+
+	public function getTimelinePictures()
+	{
+		$following_ids	= $this->following()->select('user_id')->get()->all();
+
+		foreach($following_ids as $key => &$val)
+			$val = $val->user_id;
+
+		$pictures	= Picture::whereIn('user_id', $following_ids )->orWhere('user_id', '=', Auth::user()->id)->orderBy('created_at', 'DESC')->get()->all();
+
+		return $pictures;
+	}
 }

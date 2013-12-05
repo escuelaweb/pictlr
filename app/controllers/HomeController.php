@@ -61,21 +61,8 @@ class HomeController extends BaseController {
 	}
 
 	public function main()
-	{
-		$pictures = array();
-		$following = Auth::user()->following()->with('user')->get()->all();
-		
-		if(! empty($following))
-		{
-			$following_id = array();
-			foreach($following as $foll)
-			{
-				$following_id[] = $foll->user->id;
-			}
-			$pictures = Picture::with('user')->whereIn('user_id', $following_id)->get()->all();
-		}
-		
-		return View::make('home.main')->with('pictures', $pictures);
+	{		
+		return View::make('home.main')->with('pictures', Auth::user()->getTimelinePictures());
 	}
 
 }

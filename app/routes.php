@@ -26,3 +26,4 @@ Route::get('/main', array('uses' => 'HomeController@main', 'before' => 'auth'));
 //Resource routes
 Route::resource('user', 'UserController');
 Route::resource('picture', 'PictureController', array('except' => array('edit','update')));
+Route::resource('comment', 'CommentController', array('only' => array('store')));

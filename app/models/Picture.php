@@ -50,7 +50,7 @@ class Picture extends Eloquent
 		$basedir 		= $this->getDestinationPath();
 		$filename		= Auth::user()->username . $file->getClientOriginalName();
 		$filename		= md5($filename);
-		$filename 	= $filename . '.' .$file->guessExtension();
+		$filename 	= $filename . '.' . $file->guessExtension();
 
 		try
 		{
@@ -80,7 +80,7 @@ class Picture extends Eloquent
 		return $basedir;
 	}
 
-	public function setAttributes($file)
+	public function setAttributes($file, $user_id = null)
 	{
 		$dimensions 			= getimagesize($this->public_path . $this->basedir . $this->filename);
 		$this->user_id 		= (isset($user_id) && ! empty($user_id)) ? $user_id : Auth::user()->id;		
@@ -88,5 +88,14 @@ class Picture extends Eloquent
 		$this->size				= $file->getSize();		
 		$this->width			= $dimensions[0];
 		$this->height			= $dimensions[1];
+		$this->basedir		= str_replace('\\', '/', $this->basedir);
+	}
+
+	public function deletePicture()
+	{
+		if( @unlink($this->public_path . $this->basedir . $this->filename) )
+		{
+			$this->delete();
+		}
 	}
 }

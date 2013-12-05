@@ -82,7 +82,7 @@ class UserController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		$user = User::find($id);
+		$user = User::with('pictures')->find($id);
 
 		if($user !== null)
 		{

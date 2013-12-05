@@ -5,6 +5,7 @@ class PictureController extends \BaseController {
 	public function __construct()
 	{
 		$this->beforeFilter('auth');
+		//$this->beforeFilter('picture-belongs-to-user', array('only' => array('delete')));
 	}
 
 	/**
@@ -14,6 +15,9 @@ class PictureController extends \BaseController {
 	 */
 	public function index()
 	{
+		$pictures = Picture::with('user')->orderBy('created_at', 'DESC')->get()->all();
+
+		return View::make('picture.index')->with('pictures', $pictures);
 	}
 
 	/**
@@ -53,7 +57,7 @@ class PictureController extends \BaseController {
 			}
 			catch(Exception $e)
 			{
-				return Redirect::route('picture.create')->withMessage($e->getMessage());
+				return Redirect::route('picture.create')->with('message', $e->getMessage());
 			}
 		}
 		else
@@ -70,7 +74,18 @@ class PictureController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		//
+		$picture = Picture::with('user', 'comments', 'comments.user')->find($id);
+
+		if($picture !== null)
+		{
+			$view_data = array('picture' => $picture);
+			return View::make('picture.show', $view_data);
+		}
+		else
+		{
+			App::abort(404);
+		}
+
 	}
 
 	/**
@@ -81,7 +96,13 @@ class PictureController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		$picture = Picture::find($id);
+
+		if($picture !== null)
+		{
+			$picture->deletePicture();
+		}
+		Redirect::to('/main');
 	}
 
 }

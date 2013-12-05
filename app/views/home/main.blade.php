@@ -35,4 +35,19 @@ Bienvenido {{Auth::user()->name}}
 	@endif
 	
 </header>
+<article>
+	@if(! empty($pictures))
+	<ul>
+		@foreach($pictures as $picture)
+		<li class="container">			
+			<a href="{{URL::route('picture.show', $picture->id)}}" class="row">
+				<img class="col-md-4" src="{{asset($picture->basedir . $picture->filename)}}">
+			</a>
+		</li>
+		@endforeach
+	</ul>
+	@else
+		<p>Aún no hay fotos.</p>	
+	@endif
+</article>
 @stop

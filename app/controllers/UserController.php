@@ -7,7 +7,7 @@ class UserController extends \BaseController {
 		$this->beforeFilter('auth', array('except' => array('create', 'store')));
 		$this->beforeFilter('guest', array('only' => array('create', 'store')));
 		$this->beforeFilter('same-user-control', array('only' => array('edit','update', 'destroy')));
-		$this->beforeFilter('csrf', array('only' => array('store', 'edit','destroy')));
+		$this->beforeFilter('csrf', array('only' => array('store', 'update','destroy')));
 		$this->afterFilter('user-view-count', array('only' => array('show')));
 	}
 

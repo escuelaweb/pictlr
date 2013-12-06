@@ -27,3 +27,11 @@ Route::get('/main', array('uses' => 'HomeController@main', 'before' => 'auth'));
 Route::resource('user', 'UserController');
 Route::resource('picture', 'PictureController', array('except' => array('edit','update')));
 Route::resource('comment', 'CommentController', array('only' => array('store')));
+
+/*		Operation Routes		*/
+//Like/Unlike
+Route::post('/like/{picture}/{user}', array('uses' => 'OperationsController@like', 'as' => 'ops.like', 'before' => 'auth|same-user-control'));
+Route::delete('/unlike/{picture}/{user}', array('uses' => 'OperationsController@unlike', 'as' => 'ops.unlike', 'before' => 'auth'));
+//Follow/Unfollow
+Route::post('/follow/{follower}/{user}', array('uses' => 'OperationsController@follow_unfollow', 'as' => 'ops.follow', 'before' => 'auth|same-user-control'));
+Route::delete('/unfollow/{follower}/{user}', array('uses' => 'OperationsController@follow_unfollow', 'as' => 'ops.unfollow', 'before' => 'auth|same-user-control'));

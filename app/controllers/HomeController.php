@@ -62,7 +62,7 @@ class HomeController extends BaseController {
 
 	public function main()
 	{		
-		return View::make('home.main')->with('pictures', Auth::user()->getTimelinePictures());
+		return View::make('home.main')->with('pictures', Auth::user()->getTimelinePictures());		
 	}
 
 }

@@ -96,7 +96,10 @@ Route::filter('only-saturday', function(){
 });
 
 Route::filter('same-user-control', function($route){
-	$user_id = (int) $route->getParameter('user');
+	if($route->getParameter('follower') === null)
+		$user_id = (int) $route->getParameter('user');
+	else
+		$user_id = (int) $route->getParameter('follower');
 	
 	if($user_id !== Auth::user()->id)
 	{

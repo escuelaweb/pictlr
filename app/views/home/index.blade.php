@@ -12,8 +12,8 @@
 
 			<div class="row">
 				<nav class="btn-group col-md-6">
-					<a href="#" class="btn btn-lg btn-primary">Inicia Sesión</a>
-					<a href="#" class="btn btn-lg btn-success">Regístrate</a>
+					<a href="{{URL::to('/login')}}" class="btn btn-lg btn-primary">Inicia Sesión</a>
+					<a href="{{URL::route('user.create')}}" class="btn btn-lg btn-success">Regístrate</a>
 				</nav>
 			</div>
 		</header>

@@ -42,6 +42,7 @@
 		<fieldset class="form-group row">
 			<div class="col-md-6 col-md-offset-3">
 				<input type="submit" class="btn btn-primary" value="Iniciar Sesión" />
+				<span class="register">¿No posees una cuenta? <a href="{{URL::route('user.create')}}">Regístrate</a></span>
 			</div>
 		</fieldset>
 	{{Form::close()}}

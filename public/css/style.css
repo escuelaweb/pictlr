@@ -37,3 +37,12 @@ ol.unstyled{
 	border-radius: 12px;
 	box-shadow: 2px -1px 5px 0 #000, -2px -2px 5px 0 #000, 2px 2px 5px 0 #000, -2px 2px 5px 0 #000;
 }
+
+/******************************************************************/
+/*																																*/
+/*											Estilos del Login													*/
+/*																																*/
+/******************************************************************/
+#login-content h1{
+	text-align: center;
+}

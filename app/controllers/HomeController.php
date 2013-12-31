@@ -50,13 +50,13 @@ class HomeController extends BaseController {
 			else
 			{
 				//Redirect to login form with error message
-				return Redirect::to('/login')->with('message', 'Ola k ase? Ce olbido su usuario y klave o ke ase?');
+				return Redirect::to('/login')->with('message', 'Ola k ase? Ce olbido su usuario y klave o ke ase?')->withInput();
 			}
 		}
 		else
 		{
 			//Redirect to login form with validation messages
-			return Redirect::to('/login')->withErrors($validator);
+			return Redirect::to('/login')->withErrors($validator)->withInput();
 		}
 	}
 

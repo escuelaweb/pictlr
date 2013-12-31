@@ -3,9 +3,9 @@
 @section('title') Pictlr - Inicio de Sesión @stop
 
 @section('content')
-<div class="container">
+<div id="login-content" class="container">
 	<div class="row">
-		<h1 class="col-md-6 col-md-offset-3">Bienvenido de Vuelta a Pictlr</h1>
+		<h1 class="col-md-6 col-md-offset-3">Bienvenido de vuelta a Pictlr</h1>
 	</div>
 
 	@if(Session::has('message'))
@@ -25,7 +25,7 @@
 				{{Form::label('email', $errors->first('email'), array('class' => 'label label-warning'))}}
 				@endif
 
-				{{Form::text('email', null, array('class' => 'form-control'))}}
+				{{Form::text('email', Input::old('email'), array('class' => 'form-control'))}}
 			</div>
 		</fieldset>
 		<fieldset class="form-group row">
@@ -46,38 +46,5 @@
 			</div>
 		</fieldset>
 	{{Form::close()}}
-	
-
 </div>
-@stop
-
-@section('main')
-
-@if(Session::has('message'))
-{{Session::get('message')}}
-@endif
-
-{{Form::open( array('url' => '/authenticate', 'method' => 'POST') )}}
-	<fieldset class="form-group row">
-		{{Form::label('email', 'Email: ')}}
-
-		@if($errors->has('email'))
-		{{Form::label('email', $errors->first('email'))}}
-		@endif
-
-		{{Form::text('email', null, array('class' => 'form-control'))}}
-	</fieldset>
-	<fieldset class="form-group row">
-		{{Form::label('password', 'Contraseña: ')}}
-
-		@if($errors->has('password'))
-		{{Form::label('password', $errors->first('password'))}}
-		@endif
-
-		{{Form::password('password', array('class' => 'form-control'))}}
-	</fieldset>		
-	<fieldset class="form-group row">
-		<input type="submit" class="btn btn-primary" value="Iniciar Sesión" />
-	</fieldset>
-{{Form::close()}}
 @stop

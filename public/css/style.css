@@ -1,0 +1,39 @@
+/******************************************************************/
+/*																																*/
+/*											Estilos Generales													*/
+/*																																*/
+/******************************************************************/
+img{
+	max-width: 100%;
+}
+
+p{
+	text-align: justify;
+}
+
+ul.unstyled,
+ol.unstyled{
+	list-style: none;
+}
+
+/******************************************************************/
+/*																																*/
+/*											Estilos del Home													*/
+/*																																*/
+/******************************************************************/
+#home-content header{
+	margin:0 0 36px 0;
+}
+
+#home-content #session-links{
+	overflow: hidden;
+}
+
+#home-content #session-links li{
+	float: left;
+}
+
+#home-content aside img{
+	border-radius: 12px;
+	box-shadow: 2px -1px 5px 0 #000, -2px -2px 5px 0 #000, 2px 2px 5px 0 #000, -2px 2px 5px 0 #000;
+}

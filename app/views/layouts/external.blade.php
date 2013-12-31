@@ -14,14 +14,10 @@
 	<link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
 	<link rel="stylesheet" href="{{asset('css/bootstrap-theme.min.css')}}">
 	<link rel="stylesheet" href="{{asset('css/style.css')}}">
-	@show
+	@show	
+
 </head>
-<body class="container">
-	<header>@yield('header')</header>
-	
-	<section id="main">
-	@section('main')
-	@show
-	</section>
+<body>
+	@yield('content')
 </body>
 </html>
